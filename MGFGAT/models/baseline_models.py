@@ -5,7 +5,7 @@ from torch.nn import Linear, ReLU, Sequential
 
 import torch.nn as nn
 
-from torch_geometric.nn import GCNConv, global_mean_pool, BatchNorm, global_add_pool
+from torch_geometric.nn import global_add_pool
 from torch_geometric.nn import GINConv,GATConv,BatchNorm
 from torch_geometric.nn import SAGEConv, global_mean_pool
 from torch_geometric.nn import GCNConv

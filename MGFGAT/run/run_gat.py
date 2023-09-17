@@ -1,16 +1,10 @@
 import argparse
-from itertools import product
 from multiprocessing.dummy import freeze_support
-
-import numpy as np
 
 import torch
 import multiprocessing
-import timeit
-import operator
-# from same_baseline import (GCN,GIN,GraphSAGE,GAT)
-from source_baseline import (GCN,GIN,GraphSAGE,GAT)
-from util_thread import fun
+from MGFGAT.models.baseline_models import (GAT)
+from MGFGAT.util.util_thread import fun
 
 
 def get():

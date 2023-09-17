@@ -1,37 +1,28 @@
 import argparse
-from itertools import product
 from multiprocessing.dummy import freeze_support
-
-import numpy as np
 
 import torch
 import multiprocessing
-import timeit
-import operator
-
-from source_baseline import (GCN,GIN,GraphSAGE,GAT,EEGGraphConvNet)
-from util_thread_SGD import fun
+from MGFGAT.models.baseline_models import (GIN)
+from MGFGAT.util.util_thread import fun
 
 
 def get():
     nums = [
-
-        ["AD", "CN", [10, 4], [EEGGraphConvNet, 2, 128]],
-
-        ["EMCI", "LMCI", [8, 10], [EEGGraphConvNet, 2, 128]],
-
-        ["MCI", "CN", [5, 5], [EEGGraphConvNet, 2, 128]]
+        ["AD", "CN", [10, 4], [GIN,5, 64]],
+        ["EMCI", "LMCI", [8, 10], [GIN, 5, 64]],
+        ["MCI", "CN", [5, 5], [GIN, 5, 64]]
     ]
-    device = torch.device('cuda:3' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
     parser = argparse.ArgumentParser()
     parser.add_argument('--epochs', type=int, default=100)  # y
     parser.add_argument('--batch_size', type=int, default=32)  # y
     parser.add_argument('--lr', type=float, default=0.01)  # y
     parser.add_argument('--flag', type=str, default="-source")
     parser.add_argument('--is_lr_decay_factor', type=bool, default=False)
-    parser.add_argument('--lr_decay_factor', type=float, default=0.5)  # y
-    parser.add_argument('--lr_decay_step_size', type=int, default=50)  # y
-    parser.add_argument('--weight_decay', type=float, default=0)  # y
+    parser.add_argument('--lr_decay_factor', type=float, default=0.5)  # 默认
+    parser.add_argument('--lr_decay_step_size', type=int, default=50)  # 默认
+    parser.add_argument('--weight_decay', type=float, default=0.0)  # 默认
     args = parser.parse_args()
     return nums, args, device
 
@@ -63,7 +54,7 @@ def run(num_roi):
             acc = fun(Net, num_layers, hidden, args, class1, class2, resample_num, num_roi, log, data_root, map_root,
                 device, filename)
             accs.append(acc)
-        # print(class1,class2,"folder AVG acc:",np.average(accs))
+
 
 
 if __name__ == '__main__':

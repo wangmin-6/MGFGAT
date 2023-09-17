@@ -9,7 +9,7 @@ from torch_geometric.nn import (GINConv, JumpingKnowledge,
 
 
 
-class GATwithTopKTry(torch.nn.Module):
+class Propose(torch.nn.Module):
     def __init__(self, dataset, num_layers, hidden, ratio=0.8, heads=8):
         super().__init__()
         self.conv1 = GATConv(dataset.num_features, hidden, heads, dropout=0.6)

@@ -1,38 +1,33 @@
 import argparse
-from itertools import product
 from multiprocessing.dummy import freeze_support
-
-import numpy as np
 
 import torch
 import multiprocessing
-import timeit
-import operator
-# from same_baseline import (GCN,GIN,GraphSAGE,GAT)
-from source_baseline import (GCN,GIN,GraphSAGE,GAT)
-from util_thread import fun
+from MGFGAT.models.baseline_models import (EEGGraphConvNet)
+from MGFGAT.util.util_thread_SGD import fun
 
 
 def get():
     nums = [
-        ["AD", "CN", [10, 4], [GraphSAGE,  5, 128]],
-        ["EMCI", "LMCI", [8, 10], [GraphSAGE,  5, 128]],
-        ["MCI", "CN", [5, 5], [GraphSAGE,  5, 128]]
 
+        ["AD", "CN", [10, 4], [EEGGraphConvNet, 2, 128]],
+
+        ["EMCI", "LMCI", [8, 10], [EEGGraphConvNet, 2, 128]],
+
+        ["MCI", "CN", [5, 5], [EEGGraphConvNet, 2, 128]]
     ]
     device = torch.device('cuda:3' if torch.cuda.is_available() else 'cpu')
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=100)  #
-    parser.add_argument('--batch_size', type=int, default=512)  # y
+    parser.add_argument('--epochs', type=int, default=100)  # y
+    parser.add_argument('--batch_size', type=int, default=32)  # y
     parser.add_argument('--lr', type=float, default=0.01)  # y
     parser.add_argument('--flag', type=str, default="-source")
     parser.add_argument('--is_lr_decay_factor', type=bool, default=False)
-    parser.add_argument('--lr_decay_factor', type=float, default=0.5)  # 默认
-    parser.add_argument('--lr_decay_step_size', type=int, default=50)  # 默认
-    parser.add_argument('--weight_decay', type=float, default=0.0)  # y
+    parser.add_argument('--lr_decay_factor', type=float, default=0.5)  # y
+    parser.add_argument('--lr_decay_step_size', type=int, default=50)  # y
+    parser.add_argument('--weight_decay', type=float, default=0)  # y
     args = parser.parse_args()
     return nums, args, device
-
 
 
 def run(num_roi):
@@ -68,10 +63,7 @@ def run(num_roi):
 if __name__ == '__main__':
     torch.multiprocessing.set_start_method('spawn')
     freeze_support()
-    # num_rois = [90, 60, 70, 80, 100, 10, 20, 30, 40, 50]
-    num_rois = [60]
+    num_rois = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     p = multiprocessing.Pool(5)
     b = p.map(run, num_rois)
-
-
 
