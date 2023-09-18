@@ -41,7 +41,7 @@ def run(num_roi):
             filename = "my.csv"
             map_root = "data/imageid/resample/fusion_roi/" + class1 + "_" + class2 + " ex_split_map 10.pt"
             data_root = "data/imageid/resample/fusion_roi/" + class1 + "_" + class2 + " roi " + str(num_roi) + ".pt"
-            acc = fun(Net, num_layers, hidden, args, class1, class2, resample_num, num_roi, log, data_root, map_root,
+            fun(Net, num_layers, hidden, args, class1, class2, resample_num, num_roi, log, data_root, map_root,
                       device, filename)
 
         else:
@@ -49,7 +49,7 @@ def run(num_roi):
             log = "data/log/result orgin/"
             map_root = "data/imageid/resample/orgin_roi/" + class1 + "_" + class2 + " ex_split_map 10.pt"
             data_root = "data/imageid/resample/orgin_roi/" + class1 + "_" + class2 + " roi " + str(num_roi) + ".pt"
-            acc = fun(Net, num_layers, hidden, args, class1, class2, resample_num, num_roi, log, data_root, map_root,
+            fun(Net, num_layers, hidden, args, class1, class2, resample_num, num_roi, log, data_root, map_root,
                       device, filename)
 
 
