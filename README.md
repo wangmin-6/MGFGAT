@@ -17,7 +17,5 @@ To install PyTorch Geometric library, [please refer to the pyg](https://pytorch-
 **ADNI** raw datasets can be acquired via following link [ADNI](https://adni.loni.usc.edu/):
 
 ### How to run classification?
-Training and testing are integrated in file `main.py`. To run
-```
-python 03-main.py 
-```
+Training and testing are integrated in file `run_mine.py`. To run
+
