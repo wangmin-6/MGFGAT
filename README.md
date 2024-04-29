@@ -1,6 +1,4 @@
 # MGFGAT
-# Alzheimer's Disease Diagnosis with Multi-Graph Fusion and Graph Attention Networks
-
 
 See the `requirements.txt` for environment configuration. 
 ```bash
